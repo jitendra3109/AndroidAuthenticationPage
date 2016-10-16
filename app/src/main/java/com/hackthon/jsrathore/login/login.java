@@ -15,6 +15,7 @@ public class login extends AppCompatActivity {
     private EditText userName,password;
     private Button login;
     private TextView registerHere;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +26,29 @@ public class login extends AppCompatActivity {
         password=(EditText)findViewById(R.id.password);
         login=(Button)findViewById(R.id.login);
         registerHere=(TextView)findViewById(R.id.registerhere);
+        userLocalStore=new UserLocalStore(this);
+
+
+
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-             startActivity(new Intent(login.this,register.class));
+            User user =new User(null,null);
+
+                userLocalStore.storeUserData(user);
+                userLocalStore.setUserLoggedIn(true);
+
+
             }
         });
 
         registerHere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startActivity(new Intent(login.this,register.class));
 
             }
@@ -44,7 +56,8 @@ public class login extends AppCompatActivity {
 
 
 
-       }
+    }
+
 
 
 
